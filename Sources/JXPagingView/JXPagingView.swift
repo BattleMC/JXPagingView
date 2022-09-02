@@ -90,6 +90,8 @@ open class JXPagingView: UIView {
             listContainerView.scrollView.isScrollEnabled = isListHorizontalScrollEnabled
         }
     }
+    /// 是否允许适配mainTableViewFrame
+    public var adjustMainTableViewFrame: Bool = false
     /// 是否允许当前列表自动显示或隐藏列表是垂直滚动指示器。true：悬浮的headerView滚动到顶部开始滚动列表时，就会显示，反之隐藏。false：内部不会处理列表的垂直滚动指示器。默认为：true。
     public var automaticallyDisplayListVerticalScrollIndicator = true
     /// 当allowsCacheList为true时，请务必实现代理方法`func pagingView(_ pagingView: JXPagingView, listIdentifierAtIndex index: Int) -> String`
@@ -136,7 +138,9 @@ open class JXPagingView: UIView {
         super.layoutSubviews()
 
         if mainTableView.frame != bounds {
-            mainTableView.frame = bounds
+            if adjustMainTableViewFrame != true {
+                mainTableView.frame = bounds
+            }
             mainTableView.reloadData()
         }
     }
